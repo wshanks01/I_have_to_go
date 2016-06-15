@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615202046) do
+ActiveRecord::Schema.define(version: 20160615204319) do
 
   create_table "bathrooms", force: :cascade do |t|
     t.text    "store_name"
@@ -27,9 +27,12 @@ ActiveRecord::Schema.define(version: 20160615202046) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.text "username"
-    t.text "pwd"
-    t.text "email"
+    t.text  "username"
+    t.text  "pwd"
+    t.text  "email"
+    t.float "longitude"
+    t.float "latitude"
+    t.text  "address"
   end
 
 end
