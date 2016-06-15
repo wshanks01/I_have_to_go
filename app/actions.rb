@@ -32,11 +32,12 @@ end
 
 post '/signup' do
   username = params[:username]
-  password = params[:password]
-  @user = User.new({username: username, password: password})  
+  pwd = params[:pwd]
+  email = params[:email]
+  @user = User.new({username: username, pwd: pwd, email: email})  
 
   if @user.save
-    redirect '/tracks'
+    redirect '/'
   else
     erb :'/signup'
   end
@@ -50,7 +51,7 @@ post '/login' do
 
   if user && user.password == password
       session[:user_id] = user.id
-      redirect(to('/tracks'))
+      redirect(to('/'))
   else
       erb :'/login'
   end
@@ -64,9 +65,9 @@ post '/add_bathroom' do
     family_friendly: params[:family_friendly]
   )
   if @bathroom.save
-    redirect '/tracks'
+    redirect '/results'
   else
-    erb :'/results'
+    erb :'/add_bathroom'
   end
 end
 
