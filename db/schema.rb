@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615185252) do
+ActiveRecord::Schema.define(version: 20160615202046) do
 
   create_table "bathrooms", force: :cascade do |t|
     t.text    "store_name"
