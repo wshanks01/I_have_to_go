@@ -18,6 +18,11 @@ get '/login' do
   erb :'login'
 end
 
+get '/add_bathroom' do
+  erb :'add_bathroom'
+end
+
+
 post '/' do
   address = params[:address]
   current_user.address = address
@@ -50,4 +55,19 @@ post '/login' do
       erb :'/login'
   end
 end 
+
+post '/add_bathroom' do
+  @bathroom = Bathroom.new(
+    store_name: params[:store_name],
+    address: params[:address],
+    wheelchair_access: params[:wheelchair_access],
+    family_friendly: params[:family_friendly]
+  )
+  if @bathroom.save
+    redirect '/tracks'
+  else
+    erb :'/results'
+  end
+end
+
 
