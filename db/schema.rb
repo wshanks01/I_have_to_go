@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615204319) do
+ActiveRecord::Schema.define(version: 20160615221558) do
 
   create_table "bathrooms", force: :cascade do |t|
     t.text    "store_name"
     t.float   "longitude"
     t.float   "latitude"
     t.boolean "family_friendly"
+    t.text    "address"
   end
 
   create_table "ratings", force: :cascade do |t|
