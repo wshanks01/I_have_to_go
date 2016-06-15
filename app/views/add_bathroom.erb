@@ -1,0 +1,23 @@
+<form action="/add_bathroom" method="POST">
+  <div>
+    <label>Store Name</label>
+    <input type="text" name="store_name">
+  </div>
+  <div>
+    <label>Address</label>
+    <input type="text" name="address">
+  </div>
+  <label>Family Friendly</label>
+  <input type="hidden" name="family_friendly"> 
+  <select name="family_friendly" class="form-control">
+      <option value="YES">YES</option>
+      <option value="NO">NO</option>
+  </select>
+  <label>Wheelchair Accessibility</label>
+  <input type="hidden" name="wheelchair_access"> 
+  <select name="wheelchair_access" class="form-control">
+      <option value="YES">YES</option>
+      <option value="NO">NO</option>
+  </select>
+  <input type="submit" value="Submit">
+</form>
