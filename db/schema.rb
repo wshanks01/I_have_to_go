@@ -14,19 +14,12 @@
 ActiveRecord::Schema.define(version: 20160615221558) do
 
   create_table "bathrooms", force: :cascade do |t|
-<<<<<<< 87b5b80ca8d094305a240fe7358478402c82eb94
-    t.text    "store_name"
-    t.float   "longitude"
-    t.float   "latitude"
-    t.boolean "family_friendly"
-    t.text    "address"
-=======
     t.text  "store_name"
     t.float "longitude"
     t.float "latitude"
+    t.text  "address"
     t.text  "wheelchair_access"
     t.text  "family_friendly"
->>>>>>> added bathroom/etc
   end
 
   create_table "ratings", force: :cascade do |t|

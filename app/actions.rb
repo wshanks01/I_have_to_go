@@ -25,9 +25,10 @@ end
 
 post '/' do
   address = params[:address]
-  current_user.address = address
-  current_user.save
-  redirect '/results'
+  user = User.find_by(id: session[:user_id])
+  user.address = address
+  user.save
+  redirect '/'
 end
 
 post '/signup' do
@@ -45,11 +46,11 @@ end
 
 post '/login' do 
   username = params[:username]
-  password = params[:password]
+  pwd = params[:pwd]
   
   user = User.find_by(username: username)
 
-  if user && user.password == password
+  if user && user.pwd == pwd
       session[:user_id] = user.id
       redirect(to('/'))
   else
@@ -65,7 +66,7 @@ post '/add_bathroom' do
     family_friendly: params[:family_friendly]
   )
   if @bathroom.save
-    redirect '/results'
+    redirect '/'
   else
     erb :'/add_bathroom'
   end
