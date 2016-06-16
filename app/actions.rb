@@ -4,15 +4,16 @@ helpers do
     User.find_by(id: session[:user_id])
   end
 
-  # def current_bathroom
-  #   Bathroom.find_by()
-
   def distance_uom(distance)
     if distance < 1
       "#{(distance * 1000).round(1)}m"
     else
       "#{distance.round(1)}km"
     end
+  end
+
+  def allow_new_rating?(bathroom)
+    current_user.ratings.find_by({bathroom_id: bathroom.id}).nil?
   end
 
 end
@@ -172,4 +173,9 @@ delete '/bathroom/:id' do
     redirect(back)
 end
 
+delete '/rating/:id' do
+    rating = Rating.find(params[:id])
+    rating.destroy
+    redirect(back)
+end
 

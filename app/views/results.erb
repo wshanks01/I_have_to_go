@@ -14,12 +14,23 @@
     (<%= bathroom.rating_count %>)
     <% end %>
   <p>
-  <form action="/bathroom/<%= bathroom.id %>/rating" method="POST">
-    <p>Add Rating</p>
-    <%= erb :'/ratings', { locals: { bathroom:bathroom }} %>
-    <input type="submit" value ="Submit">
-  </form>
-
+  <% if allow_new_rating?(bathroom) %>
+    <form action="/bathroom/<%= bathroom.id %>/rating" method="POST">
+      <p>Add Rating</p>
+      <%= erb :'/ratings', { locals: { bathroom:bathroom }} %>
+      <input type="submit" value ="Submit">
+    </form>
+    <% else %>
+    <% bathroom.ratings.each do |rating| %>
+      <% if rating.user_id == current_user.id %>
+        <form action="/rating/<%= rating.id %>" method="POST">
+        <input name="_method" type="hidden" value="delete">
+        <button class="btn btn-default" type="submit">
+          Delete Review
+        </button>
+      <% end %>
+    <% end %>
+  <% end %>
   </p>
   <p>
   Distance to Bathroom:<%= distance_uom(bathroom.distance_to([@lat, @lon], :km)) %>
