@@ -18,6 +18,12 @@ get '/login' do
   erb :'login'
 end
 
+get '/logout' do
+    session[:user_id] = nil
+    redirect(to('/'))
+    "Logout successful!"
+end
+
 get '/add_bathroom' do
   erb :'add_bathroom'
 end

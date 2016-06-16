@@ -17,10 +17,7 @@ ActiveRecord::Schema.define(version: 20160615221558) do
     t.text  "store_name"
     t.float "longitude"
     t.float "latitude"
-<<<<<<< HEAD
     t.text  "address"
-=======
->>>>>>> 7cb6bc93a27f4e5a81ea61dd05ccabc05a02726c
     t.text  "wheelchair_access"
     t.text  "family_friendly"
   end
