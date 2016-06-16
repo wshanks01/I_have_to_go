@@ -1,0 +1,27 @@
+<% @bathrooms.each do |bathroom| %>
+<br></br>
+<br></br>
+<p>
+  <p>Store Name: <%= bathroom.store_name %></p>
+  <p>Store Address: <%= bathroom.address %></p>
+  <p>Wheelchair Acessibility: <%= bathroom.wheelchair_access %>
+  <p>Family Friendly:<%= bathroom.family_friendly %></p>
+  <p>Rating:
+    <% if bathroom.rating_average.nil? %>
+    No Reviews
+    <% else %>
+    <%= bathroom.rating_average.round(1) %>
+    (<%= bathroom.rating_count %>)
+    <% end %>
+  <p>
+  <form action="/bathroom/<%= bathroom.id %>/rating" method="POST">
+    <p>Add Rating</p>
+    <%= erb :'/ratings', { locals: { bathroom:bathroom }} %>
+    <input type="submit" value ="Submit">
+  </form>
+
+  </p>
+  <p>
+  Distance to Bathroom:<%= distance_uom(bathroom.distance_to([@lat, @lon], :km)) %>
+  </p>
+<% end %>

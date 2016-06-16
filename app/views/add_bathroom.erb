@@ -19,5 +19,7 @@
       <option value="YES">YES</option>
       <option value="NO">NO</option>
   </select>
+  <label> Bathroom Rating </label>
+  <%= erb :'/ratings', { locals: { bathroom: @bathroom }} %>
   <input type="submit" value="Submit">
 </form>

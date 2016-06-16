@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 20160615221558) do
 
   create_table "ratings", force: :cascade do |t|
     t.integer "rating"
-    t.integer "bathrooms_id"
-    t.integer "users_id"
+    t.integer "user_id"
+    t.integer "bathroom_id"
   end
 
   create_table "users", force: :cascade do |t|
