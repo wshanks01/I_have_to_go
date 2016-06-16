@@ -66,7 +66,7 @@ post '/add_bathroom' do
     family_friendly: params[:family_friendly]
   )
   if @bathroom.save
-    redirect '/'
+    redirect '/results'
   else
     erb :'/add_bathroom'
   end
