@@ -30,6 +30,26 @@ get '/login' do
   erb :'login'
 end
 
+get '/admin/admin_view' do
+  @bathrooms = Bathroom.all
+  erb :'admin/admin_view'
+end
+
+
+get '/admin/login' do
+  erb :'admin/login'
+end
+
+get '/admin/signup' do
+  erb :'admin/signup'
+end
+
+get '/admin/logout' do
+  session[:admin_id] = nil
+  redirect(to('/admin/login'))
+end
+
+
 get '/logout' do
     session[:user_id] = nil
     redirect(to('/'))
@@ -74,6 +94,18 @@ post '/signup' do
   end
 end
 
+post '/admin/signup' do
+  username = params[:username]
+  pwd = params[:password]
+  @admin = Admin.new({username: username, password: pwd})  
+
+  if @admin.save
+    redirect '/admin/login'
+  else
+    erb :'/signup'
+  end
+end
+
 post '/login' do 
   username = params[:username]
   pwd = params[:pwd]
@@ -85,6 +117,20 @@ post '/login' do
       redirect(to('/'))
   else
       erb :'/login'
+  end
+end 
+
+post '/admin/login' do 
+  username = params[:username]
+  pwd = params[:password]
+  
+  admin = Admin.find_by(username: username)
+
+  if admin && admin.password == pwd
+      session[:admin_id] = admin.id
+      redirect(to('/admin/admin_view'))
+  else
+      erb :'/admin/login'
   end
 end 
 
@@ -118,8 +164,12 @@ post '/bathroom/:id/rating' do
   if @rating.save
     redirect '/results'
   end
-
 end
 
+delete '/bathroom/:id' do
+    bathroom = Bathroom.find(params[:id])
+    bathroom.destroy
+    redirect(back)
+end
 
 
