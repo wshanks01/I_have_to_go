@@ -4,6 +4,10 @@ helpers do
     User.find_by(id: session[:user_id])
   end
 
+  def current_admin
+    Admin.find_by(id: session[:admin_id])
+  end
+
   def distance_uom(distance)
     if distance < 1
       "#{(distance * 1000).round(1)}m"
@@ -15,7 +19,18 @@ helpers do
   def allow_new_rating?(bathroom)
     current_user.ratings.find_by({bathroom_id: bathroom.id}).nil?
   end
+end
 
+def require_user
+  unless current_user
+    redirect '/login'
+  end 
+end
+
+def require_admin
+  unless current_admin
+    redirect '/admin/login'
+  end
 end
 
 get '/' do
@@ -36,6 +51,7 @@ get '/login' do
 end
 
 get '/admin/admin_view' do
+  require_admin
   @bathrooms = Bathroom.all
   erb :'admin/admin_view'
 end
@@ -62,12 +78,14 @@ get '/logout' do
 end
 
 get '/add_bathroom' do
+  require_user
   @bathroom = Bathroom.new
   erb :'add_bathroom'
 end
 
 get '/results' do
- @lat = current_user.latitude
+  require_user
+  @lat = current_user.latitude
   @lon = current_user.longitude
   @bathrooms = Bathroom.near([@lat, @lon], 200)
   erb :'results'
@@ -167,7 +185,7 @@ post '/bathroom/:id/rating' do
     user_id: current_user.id
     )
   if @rating.save
-    redirect '/results'
+    redirect(back)
   end
 end
 

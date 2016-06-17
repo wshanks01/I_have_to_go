@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 extend Geocoder::Model::ActiveRecord
 geocoded_by :address
-after_validation :geocode
+reverse_geocoded_by :latitude, :longitude
+after_validation :geocode, :reverse_geocode
 has_many :ratings
+
 end
