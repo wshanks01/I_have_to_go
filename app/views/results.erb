@@ -16,23 +16,25 @@
   <p>
   <label>Distance to Bathroom: </label> <%= distance_uom(bathroom.distance_to([@lat, @lon], :km)) %>
   </p>
-  <% if allow_new_rating?(bathroom) %>
-    <form action="/bathroom/<%= bathroom.id %>/rating" method="POST">
-      <%= erb :'/ratings', { locals: { bathroom:bathroom }} %>
-      <input class="btn btn-default" type="submit" value ="Submit">
-    </form>
-    <% else %>
-    <% bathroom.ratings.each do |rating| %>
-      <% if rating.user_id == current_user.id %>
-        <form action="/rating/<%= rating.id %>" method="POST">
-        <input name="_method" type="hidden" value="delete">
-        <button class="btn btn-default" type="submit">
-          Delete Review
-        </button>
+  <a href="http://www.maps.google.com?q=loc: <%= bathroom.latitude %>,<%= bathroom.longitude %>" class="btn btn-default">Get Directions</a></button>
+    <% if allow_new_rating?(bathroom) %>
+      <form action="/bathroom/<%= bathroom.id %>/rating" method="POST">
+        <%= erb :'/ratings', { locals: { bathroom:bathroom }} %>
+        <input class="btn btn-default" type="submit" value ="Submit">
+      </form>
+      <% else %>
+      <% bathroom.ratings.each do |rating| %>
+        <% if rating.user_id == current_user.id %>
+          <form action="/rating/<%= rating.id %>" method="POST">
+          <input name="_method" type="hidden" value="delete">
+          <button class="btn btn-default" type="submit">
+            Delete Rating
+          </button>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
   </p>
+  <hr color="black" width="60%">
 <% end %>
 
 <br></br>
