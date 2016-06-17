@@ -14,10 +14,12 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/javascript/application.js"></script>
+  <script src="jquery-1.12.2.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>I Have To Go</title>
 </head>
 <body class="container">
+<br></br>
   <header>
     <div class="jumbotron jumbotron-special">
       <div class="centre">
@@ -46,7 +48,7 @@
   </header> 
 </div>
 <br></br>
-<div class="jumbotron vertical-center">
+<div class="jumbotron vertical-centre jumbotron-unique">
     <div class="centre">
       <%= yield %>
     </div>
@@ -54,3 +56,17 @@
 </body>
 </html>
 
+<script>
+$(function(){
+
+$(window).bind("resize",function(){
+    console.log($(this).width())
+    if($(this).width() <1000){
+    $('div').removeClass('jumbotron-unique')
+    }
+    else{
+    $('div').addClass('jumbotron-unique')
+    }
+})
+})
+</script>
