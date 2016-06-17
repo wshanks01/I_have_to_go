@@ -19,11 +19,9 @@
       <option value="YES">YES</option>
       <option value="NO">NO</option>
   </select>
-  <% if current_user && !allow_new_comment %>
   <label> Bathroom Rating </label>
   <%= erb :'/ratings', { locals: { bathroom: @bathroom }} %>
-  <% end %>
   <input type="submit" value="Submit">
 </form>
-
+<br></br>
 <a href='/'>Back Home</a>

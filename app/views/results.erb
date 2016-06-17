@@ -1,22 +1,23 @@
 <% @bathrooms.each do |bathroom| %>
 <br></br>
-<br></br>
 <p>
-  <p>Store Name: <%= bathroom.store_name %></p>
-  <p>Store Address: <%= bathroom.address %></p>
-  <p>Wheelchair Acessibility: <%= bathroom.wheelchair_access %>
-  <p>Family Friendly:<%= bathroom.family_friendly %></p>
-  <p>Rating:
-    <% if bathroom.rating_average.nil? %>
+  <p><label>Store Name:</label> <%= bathroom.store_name %></p>
+  <p><label>Store Address:</label> <%= bathroom.address %></p>
+  <p><label>Wheelchair Acessibility:</label> <%= bathroom.wheelchair_access %>
+  <p><label>Family Friendly:</label> <%= bathroom.family_friendly %></p>
+  <p><label>Rating: </label>
+  <% if bathroom.rating_average.nil? %>
     No Reviews
     <% else %>
     <%= bathroom.rating_average.round(1) %>
     (<%= bathroom.rating_count %>)
     <% end %>
   <p>
+  <p>
+  <label>Distance to Bathroom: </label> <%= distance_uom(bathroom.distance_to([@lat, @lon], :km)) %>
+  </p>
   <% if allow_new_rating?(bathroom) %>
     <form action="/bathroom/<%= bathroom.id %>/rating" method="POST">
-      <p>Add Rating</p>
       <%= erb :'/ratings', { locals: { bathroom:bathroom }} %>
       <input type="submit" value ="Submit">
     </form>
@@ -32,10 +33,6 @@
     <% end %>
   <% end %>
   </p>
-  <p>
-  Distance to Bathroom:<%= distance_uom(bathroom.distance_to([@lat, @lon], :km)) %>
-  </p>
 <% end %>
 
-<p>
-<a href="/">New Search</a>
+<br></br>

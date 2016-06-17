@@ -19,7 +19,11 @@ helpers do
 end
 
 get '/' do
-  erb :index
+  if !current_user.nil?
+    erb :index
+  else
+    erb :login
+  end
 end
 
 get '/signup' do

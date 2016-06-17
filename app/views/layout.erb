@@ -15,26 +15,42 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/javascript/application.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>I Have To Go</title>
 </head>
 <body class="container">
-  <% if current_user %>
-      <%= current_user.username %>
-    <p>
-    <a href="/add_bathroom">New Bathroom</a>
-    </p>
-    <p>
-    <a href="/logout">Logout</a>
-    </p>
-  <% else %>    
-    <p>
-    <a href="/login">Login</a>
-    </p>
-    <p>
-    <a href="/signup">Sign Up</a>
-    </p>
-   <% end %> 
-  <%= yield %>
+  <header>
+    <div class="jumbotron jumbotron-special">
+      <div class="centre">
+        <h1 class="text-muted">I Have To Go</h1>
+      </div>
+      <% if current_user %>
+        <p>User: <%= current_user.username %></p>
+        <p>
+        <a href="/add_bathroom">New Bathroom</a>
+        </p>
+        <p>
+        <a href="/">New Search</a>
+        </p>
+        <p>
+        <a href="/logout">Logout</a>
+        </p>
+      <% else %>    
+        <p>
+        <a href="/login">Login</a>
+        </p>
+        <p>
+        <a href="/signup">Sign Up</a>
+        </p>
+      <% end %> 
+    </div>
+  </header> 
+</div>
+<br></br>
+<div class="jumbotron vertical-center">
+    <div class="centre">
+      <%= yield %>
+    </div>
+</div>
 </body>
 </html>
 
