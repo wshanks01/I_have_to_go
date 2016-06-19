@@ -1,4 +1,3 @@
-
 configure :development do
   ActiveRecord::Base.logger = Logger.new(STDOUT)
 end

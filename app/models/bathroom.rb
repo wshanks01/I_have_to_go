@@ -3,6 +3,7 @@ extend Geocoder::Model::ActiveRecord
 geocoded_by :address
 after_validation :geocode
 has_many :ratings
+belongs_to :user
 
 def rating_average
   self.ratings.average(:rating)

@@ -91,6 +91,13 @@ get '/results' do
   erb :'results'
 end
 
+get '/profile/:id' do
+  require_user
+  @bathrooms = current_user.bathrooms
+  @user = current_user
+  params[:id] = @user.id
+  erb :'/profile'
+end
 
 post '/' do
   address = params[:address]
@@ -162,7 +169,8 @@ post '/add_bathroom' do
     store_name: params[:store_name],
     address: params[:address],
     wheelchair_access: params[:wheelchair_access],
-    family_friendly: params[:family_friendly]
+    family_friendly: params[:family_friendly],
+    user_id: current_user.id
   )
   @bathroom.save
   @rating = Rating.new(
@@ -189,6 +197,20 @@ post '/bathroom/:id/rating' do
   end
 end
 
+put '/user/:id' do
+  username = params[:username]
+  pwd = params[:pwd]
+  email = params[:email]
+  @user = current_user
+  @user.update(
+    username: username, 
+    pwd: pwd, 
+    email: email
+    ) 
+  redirect(back) 
+end
+
+
 delete '/bathroom/:id' do
     bathroom = Bathroom.find(params[:id])
     bathroom.destroy
@@ -201,3 +223,8 @@ delete '/rating/:id' do
     redirect(back)
 end
 
+delete '/user/:id' do
+    user = current_user
+    user.destroy
+    redirect '/'
+end

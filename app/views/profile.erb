@@ -1,0 +1,85 @@
+<div class="jumbotron">
+<h3>Edit Account Details</h3>
+<form role="form" method="post" action="/user/:id">
+  <input name="_method" type="hidden" value="put">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input class="form-control" type="text" name="username" value="<%=@user.username%>">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input class="form-control" type="password" name="pwd" value="<%=@user.pwd%>">
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input class="form-control" type="email" name="email" value="<%=@user.email%>">
+  </div>
+  <div>
+    <input class="btn btn-info" type="submit" value="Update Account Details">
+  </div>
+</form>
+<br></br>
+<form action="/user/:id" method="POST">
+  <input name="_method" type="hidden" value="delete">
+  <button class="btn btn-danger" type="submit">
+  Delete Account
+  </button>
+</form>
+</div>
+
+<% if @user && @user.errors.any? %>
+  <div>
+      <strong>Some issues with submition, please fix it:</strong>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<button data-toggle="collapse" data-target="#demo" class="btn btn-info">Your Bathrooms</button>
+<div id="demo" class="collapse">
+  <% @bathrooms.each do |bathroom| %>
+    <br></br>
+    <div class="well well-sm">
+    <br></br>
+    <p>
+    <ul class="list-group">
+      <li class="list-group-item"><label>Store Name:</label> <%= bathroom.store_name %></li>
+      <li class="list-group-item"><label>Store Address:</label> <%= bathroom.address %></li>
+      <li class="list-group-item"><label>Wheelchair Acessibility:</label> <%= bathroom.wheelchair_access %></li>
+      <li class="list-group-item"><label>Family Friendly:</label> <%= bathroom.family_friendly %></li>
+      <li class="list-group-item"><label>Rating: </label>
+      <% if bathroom.rating_average.nil? %>
+        No Reviews
+        <% else %>
+        <%= bathroom.plural_rating(bathroom.rating_average) %>
+        (<%= bathroom.plural_count(bathroom.rating_count) %>)
+        <% end %>
+      </li>
+      <li class="list-group-item"><label>Distance to Bathroom: </label> <%= distance_uom(bathroom.distance_to([@lat, @lon], :km)) %> <a href="http://www.maps.google.com?q=loc: <%= bathroom.latitude %>,<%= bathroom.longitude %>" class="btn btn-info">Get Directions</a></li>
+      <br></br>
+        <% if allow_new_rating?(bathroom) %>
+          <form action="/bathroom/<%= bathroom.id %>/rating" method="POST">
+            <%= erb :'/ratings', { locals: { bathroom:bathroom }} %>
+            <input class="btn btn-info" type="submit" value ="Submit Rating">
+          </form>
+          <% else %>
+          <% bathroom.ratings.each do |rating| %>
+            <% if rating.user_id == current_user.id %>
+              <form action="/rating/<%= rating.id %>" method="POST">
+                <input name="_method" type="hidden" value="delete">
+                <button class="btn btn-info" type="submit">
+                Delete Rating
+                </button>
+              </form>
+            <% end %>
+          <% end %>
+        <% end %>
+      </p>
+    </div>
+
+  <% end %>
+</div>
+<br></br>

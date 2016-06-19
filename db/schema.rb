@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616153530) do
+ActiveRecord::Schema.define(version: 20160618115530) do
 
   create_table "admins", force: :cascade do |t|
     t.string "username"
@@ -19,12 +19,13 @@ ActiveRecord::Schema.define(version: 20160616153530) do
   end
 
   create_table "bathrooms", force: :cascade do |t|
-    t.text  "store_name"
-    t.float "longitude"
-    t.float "latitude"
-    t.text  "address"
-    t.text  "wheelchair_access"
-    t.text  "family_friendly"
+    t.text    "store_name"
+    t.float   "longitude"
+    t.float   "latitude"
+    t.text    "address"
+    t.text    "wheelchair_access"
+    t.text    "family_friendly"
+    t.integer "user_id"
   end
 
   create_table "ratings", force: :cascade do |t|
